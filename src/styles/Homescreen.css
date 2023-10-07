@@ -11,3 +11,7 @@ li {
   background-color: white;
   width: 90%;
 }
+
+li span:last-child i:hover {
+  cursor: pointer;
+}

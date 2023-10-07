@@ -1,6 +1,7 @@
 import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { deleteStock } from "../redux/wishlistSlice"
+import "../styles/Wishlist.css"
 
 function Wishlist() {
   const dispatch = useDispatch()
@@ -26,21 +27,21 @@ function Wishlist() {
           return (
             <li
               key={v4()}
-              className="text-black d-flex justify-content-around p-2 border-bottom border-primary"
+              className="text-black d-flex justify-content-around p-2 mb-2 rounded"
             >
-              <span>{wishlist["2. name"]}</span>
-              <span>{stockPrice(wishlist["1. symbol"])}</span>
+              <span className="fw-medium">{wishlist["2. name"]}</span>
+              <span className="fw-semibold">{stockPrice(wishlist["1. symbol"])}</span>
               <span onClick={() => dispatch(deleteStock(wishlist))}>
-                <i className="fa-solid fa-trash" style={{ color: "#e4d107" }}></i>
+                <i className="fa-solid fa-trash" ></i>
               </span>
             </li>
           )
         })} */}
         <li className="text-black d-flex justify-content-around p-2 mb-2 rounded">
-          <span>list1</span>
-          <span>12.8723</span>
+          <span className="fw-medium">list1</span>
+          <span className="fw-semibold">12.8723</span>
           <span>
-            <i className="fa-solid fa-trash" style={{ color: "#e4d107" }}></i>
+            <i className="fa-solid fa-trash"></i>
           </span>
         </li>
         <li className="text-black d-flex justify-content-around p-2 mb-2 rounded">

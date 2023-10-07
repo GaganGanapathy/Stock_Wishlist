@@ -43,8 +43,8 @@ function HomeScreen() {
       />
       <ul>
         <li className="text-black d-flex justify-content-around p-2  mb-2 rounded">
-          <span>list1</span>
-          <span>12.000</span>
+          <span className="fw-medium">list1</span>
+          <span className="fw-semibold">12.000</span>
           <span>
             <i className="fa-solid fa-plus"></i>
           </span>
@@ -58,10 +58,18 @@ function HomeScreen() {
         </li>
         {suggestions?.map((suggestion) => {
           return (
-            <li key={v4()}>
-              <span>{suggestion["2. name"]} </span>
-              <span>{stockPrice(suggestion["1. symbol"])}</span>
-              <span onClick={() => dispatch(addStock(suggestion))}>
+            <li
+              key={v4()}
+              className="text-black d-flex justify-content-around p-2  mb-2 rounded"
+            >
+              <span className="fw-medium">{suggestion["2. name"]} </span>
+              <span className="fw-semibold">
+                {stockPrice(suggestion["1. symbol"])}
+              </span>
+              <span
+                className="add"
+                onClick={() => dispatch(addStock(suggestion))}
+              >
                 <i className="fa-solid fa-plus"></i>
               </span>
             </li>
