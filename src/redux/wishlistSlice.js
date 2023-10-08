@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
-  wishlist: [],
+  stocks: [],
 }
 
 export const wishlistSlice = createSlice({
@@ -9,11 +9,11 @@ export const wishlistSlice = createSlice({
   initialState,
   reducers: {
     addStock: (state, action) => {
-      state.wishlist = state.wishlist.unshift(action.payload)
+      state.stocks.push(action.payload)
     },
     deleteStock: (state, action) => {
-      state.wishlist = state.wishlist.filter((stock) => {
-        stock["1. symbol"] != action.payload["1. symbol"]
+      state.stocks = state.stocks.filter((stock) => {
+        return stock.symbol !== action.payload.symbol
       })
     },
   },

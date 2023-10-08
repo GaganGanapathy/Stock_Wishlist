@@ -5,7 +5,7 @@ import "../styles/Homescreen.css"
 import { useDispatch } from "react-redux"
 import { addStock } from "../redux/wishlistSlice"
 
-function HomeScreen() {
+function Home() {
   const dispatch = useDispatch()
   const [input, setInput] = useState("")
   const [suggestions, setSuggestions] = useState([])
@@ -46,7 +46,7 @@ function HomeScreen() {
         console.log(error)
         setSuggestions([])
       }
-    }, 1000)
+    }, 2000)
     // const fetchData = async () => {
 
     // }
@@ -72,6 +72,7 @@ function HomeScreen() {
       }
 
       const response = await axios.request(options)
+      console.log(response.data[0].regularMarketPrice)
       const result = response.data[0].regularMarketPrice
       return result
     } catch (error) {
@@ -110,4 +111,4 @@ function HomeScreen() {
   )
 }
 
-export default HomeScreen
+export default Home
