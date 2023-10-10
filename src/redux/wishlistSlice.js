@@ -9,7 +9,13 @@ export const wishlistSlice = createSlice({
   initialState,
   reducers: {
     addStock: (state, action) => {
-      state.stocks.push(action.payload)
+      const isStockInWishlist = state.stocks.some(
+        (stock) => stock.symbol === action.payload.symbol
+      )
+
+      if (!isStockInWishlist) {
+        state.stocks.push(action.payload)
+      }
     },
     deleteStock: (state, action) => {
       state.stocks = state.stocks.filter((stock) => {

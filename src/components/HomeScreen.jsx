@@ -11,74 +11,82 @@ function HomeScreen() {
   const [suggestions, setSuggestions] = useState([])
 
   useEffect(() => {
-    const getData = setTimeout(async () => {
-      const options = {
-        method: "GET",
-        url: `https://yahoo-finance15.p.rapidapi.com/api/yahoo/sc/search/${input}`,
-        headers: {
-          "X-RapidAPI-Key":
-            "d7664246d9msh1d9d9f2da772bc7p1e484ajsndf9bb51da438",
-          "X-RapidAPI-Host": "yahoo-finance15.p.rapidapi.com",
-        },
-      }
-
-      try {
-        const response = await axios.request(options)
-        const suggestionsData = response.data.body
-
-        // Fetch stock prices for suggestions
-        const pricePromises = suggestionsData.map((suggestion) =>
-          stockPrice(suggestion.symbol)
-        )
-
-        const prices = await Promise.all(pricePromises)
-
-        // Combine suggestions with stock prices
-        const suggestionsWithPrices = suggestionsData.map(
-          (suggestion, index) => ({
-            ...suggestion,
-            price: prices[index],
-          })
-        )
-
-        setSuggestions(suggestionsWithPrices)
-      } catch (error) {
-        console.log(error)
-        setSuggestions([])
-      }
-    }, 1000)
-    // const fetchData = async () => {
-
+    // const getData = setTimeout(async () => {
+    // const options = {
+    //   method: "GET",
+    //   url: `https://yahoo-finance15.p.rapidapi.com/api/yahoo/sc/search/${input}`,
+    //   headers: {
+    //     "X-RapidAPI-Key":
+    //       "d7664246d9msh1d9d9f2da772bc7p1e484ajsndf9bb51da438",
+    //     "X-RapidAPI-Host": "yahoo-finance15.p.rapidapi.com",
+    //   },
     // }
 
-    // fetchData()
-    return () => clearInterval(getData)
+    //   try {
+    //     const response = await axios.request(options)
+    //     const suggestionsData = response.data.body
+
+    //     // Fetch stock prices for suggestions
+    //     const pricePromises = suggestionsData.map((suggestion) =>
+    //       stockPrice(suggestion.symbol)
+    //     )
+
+    //     const prices = await Promise.all(pricePromises)
+
+    //     // Combine suggestions with stock prices
+    //     const suggestionsWithPrices = suggestionsData.map(
+    //       (suggestion, index) => ({
+    //         ...suggestion,
+    //         price: prices[index],
+    //       })
+    //     )
+
+    //     setSuggestions(suggestionsWithPrices)
+    //   } catch (error) {
+    //     console.log(error)
+    //     setSuggestions([])
+    //   }
+    // }, 1000)
+    // // const fetchData = async () => {
+
+    // // }
+
+    // // fetchData()
+    // return () => clearInterval(getData)
+    const getData = async () => {
+      const response = await axios.get(
+        `https://dev.portal.tradebrains.in/api/search?keyword=${input}`
+      )
+      console.log(response.data)
+      setSuggestions(response.data)
+    }
+    getData()
   }, [input])
 
   const handleInput = (e) => {
     setInput(e.target.value)
   }
 
-  const stockPrice = async (symbol) => {
-    try {
-      const options = {
-        method: "GET",
-        url: `https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${symbol}`,
-        headers: {
-          "X-RapidAPI-Key":
-            "d7664246d9msh1d9d9f2da772bc7p1e484ajsndf9bb51da438",
-          "X-RapidAPI-Host": "yahoo-finance15.p.rapidapi.com",
-        },
-      }
+  // const stockPrice = async (symbol) => {
+  //   try {
+  //     const options = {
+  //       method: "GET",
+  //       url: `https://yahoo-finance15.p.rapidapi.com/api/yahoo/qu/quote/${symbol}`,
+  //       headers: {
+  //         "X-RapidAPI-Key":
+  //           "d7664246d9msh1d9d9f2da772bc7p1e484ajsndf9bb51da438",
+  //         "X-RapidAPI-Host": "yahoo-finance15.p.rapidapi.com",
+  //       },
+  //     }
 
-      const response = await axios.request(options)
-      const result = response.data[0].regularMarketPrice
-      return result
-    } catch (error) {
-      console.log(error)
-      return null
-    }
-  }
+  //     const response = await axios.request(options)
+  //     const result = response.data[0].regularMarketPrice
+  //     return result
+  //   } catch (error) {
+  //     console.log(error)
+  //     return null
+  //   }
+  // }
 
   return (
     <div>
@@ -95,8 +103,8 @@ function HomeScreen() {
             key={v4()}
             className="text-black d-flex justify-content-between p-2 mb-2 rounded"
           >
-            <span className=" ps-1 fw-medium">{suggestion.name} </span>
-            <span className="fw-semibold">{suggestion.price}</span>
+            <span className=" ps-1 fw-medium">{suggestion.company} </span>
+            {/* <span className="fw-semibold">{suggestion.price}</span> */}
             <span
               className="add pe-1"
               onClick={() => dispatch(addStock(suggestion))}

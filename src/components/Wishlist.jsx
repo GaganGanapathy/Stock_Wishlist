@@ -23,8 +23,8 @@ function Wishlist() {
               key={v4()}
               className="text-black d-flex justify-content-between p-2 mb-2 rounded"
             >
-              <span className="ps-1 fw-medium">{wishlist.name}</span>
-              <span className="fw-semibold">{wishlist.price}</span>
+              <span className="ps-1 fw-medium">{wishlist.company}</span>
+              {/* <span className="fw-semibold">{wishlist.price}</span> */}
               <span
                 className="pe-1"
                 onClick={() => dispatch(deleteStock(wishlist))}
